@@ -1,0 +1,75 @@
+import random
+
+usuario_guardado = "admin"
+contraseña_guardada = "1234"
+intentos = 0
+
+while intentos < 3:
+    usuario = input("Ingrese su usuario: ").lower()
+    contraseña = input("Ingrese su contraseña: ").lower()
+
+    if usuario == usuario_guardado and contraseña == contraseña_guardada:
+        print(" Acceso concedido. ¡Bienvenido!")
+        break
+    else:
+        intentos += 1
+        print(f"❌ Usuario o contraseña incorrectos. Intento {intentos}/3")
+
+if intentos == 3:
+    print(" Acceso denegado. Programa finalizado.")
+    exit()
+
+perfil = {
+    "nombre": "Cristian",
+    "edad": "37",
+    "color favorito": "azul"
+}
+
+saludos_respuestas = ["¡Hola!", "¡Qué gusto verte!", "¡Buenas!", "¡Hola, espero que tengas un gran día!"]
+
+while True:
+    print("\n--- MENÚ PRINCIPAL ---")
+    print("1. Ver información del perfil")
+    print("2. Agregar información")
+    print("3. Eliminar información")
+    print("4. Hablar con el asistente")
+    print("5. Salir")
+
+    opcion = input("Elige una opción: ").lower()
+
+    if opcion == "1":
+        for clave, valor in perfil.items():
+            print(f"{clave}: {valor}")
+    elif opcion == "2":
+        clave = input("Escribe el nombre del dato que deseas agregar: ").lower()
+        valor = input(f"Escribe el valor para '{clave}': ").lower()
+        perfil[clave] = valor
+        print("✅ Dato agregado correctamente.")
+    elif opcion == "3":
+        clave = input("Escribe el nombre del dato que deseas eliminar: ").lower()
+        if clave in perfil:
+            del perfil[clave]
+            print("🗑️ Dato eliminado correctamente.")
+        else:
+            print("⚠️ Ese dato no existe.")
+    elif opcion == "4":
+        print("💬 Escribe 'salir' para terminar la conversación.")
+        while True:
+            mensaje = input("Tú: ").lower()
+            if mensaje == "salir":
+                break
+            elif mensaje in ["hola", "buenas", "hey"]:
+                print("Asistente:", random.choice(saludos_respuestas))
+            elif "color favorito" in mensaje:
+                print("Asistente: Tu color favorito es", perfil.get("color favorito", "no lo tengo registrado."))
+            elif "nombre" in mensaje:
+                print("Asistente: Tu nombre es", perfil.get("nombre", "no lo tengo registrado."))
+            elif "edad" in mensaje:
+                print("Asistente: Tu edad es", perfil.get("edad", "no lo tengo registrada."))
+            else:
+                print("Asistente: No tengo información sobre eso aún 😅")
+    elif opcion == "5":
+        print("👋 Gracias por usar el asistente. ")
+        break
+    else:
+        print("⚠️ Opción no válida. Intenta nuevamente.")
